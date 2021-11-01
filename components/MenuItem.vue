@@ -7,46 +7,23 @@
         <div class='menu-content'>
             <div>
                 <p class='menu-item-title'>
-                    Наименование товара
-                    <!-- {{ item.title }} -->
+                    {{ this.$props.item.title }}
                 </p>
                 <p class='menu-item-descr'>
-                    <!-- {{ item.descr }}  -->
-                    Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк
+                    {{ this.$props.item.descr }} 
                 </p>
                 <p class='menu-item-price'>
-                    <!-- {{ item.price }}  -->
-                    10 000руб.
+                    {{ this.$props.item.price.toString().replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, "$1" + ' ') }} руб.
                 </p>
-            </div>
-            
+            </div>            
         </div>
     </div>
 </template>
 
 <script>
-import Vue from 'vue';
-
-// new Vue({
-//   data: {
-//     items: [
-//       {
-//         id: 1,
-//         title: "Название товара",
-//         descr: "Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк.",
-//         price: 10000
-//       },
-//       {
-//         id: 2,
-//         title: "Название товара",
-//         descr: "Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк.",
-//         price: 10000
-//       },
-//     ],
-//   },
-// })
-
-export default {}
+export default {
+    props: ['item'],
+}
 </script>
 
 <style lang="scss">
