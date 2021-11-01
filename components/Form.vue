@@ -1,12 +1,19 @@
 <template>
-    <form
-    class='sidebar-wrapper'>        
+    <form class='sidebar-wrapper' 
+    @submit.prevent="someAction()">        
         <div class='sidebar-item'>
             <label class='sidebar-label'>Наименование товара</label>
             <div class='label__important'></div>
-            <input class='sidebar-input' 
-            type='text' 
-            placeholder='Введите наименование товара'/>
+            <input class='sidebar-input'
+            placeholder='Введите наименование товара'
+            v-model="title"
+            type="text"
+            @blur="isTitleTouched = true"
+            :class="{ error: isTitleError }"
+            />
+            <div v-if="isTitleError" class='error-mes'>
+                Поле является обязательным
+            </div>
         </div>
         <div class='sidebar-item'>
             <label  class='sidebar-label'>Описание товара</label>
@@ -14,22 +21,84 @@
         </div>
         <div class='sidebar-item'>
             <label  class='sidebar-label'>Ссылка на изображение товара</label>
+            <div class='label__important'></div>
             <input class='sidebar-input' 
-            placeholder='Введите ссылку'/>
+            placeholder='Введите ссылку'
+            v-model="link"
+            type="text"
+            @blur="isLinkTouched = true"
+            :class="{ error: isLinkError }"/>
+            <div v-if="isLinkError" class='error-mes'>
+                Поле является обязательным
+            </div>
         </div>
         <div class='sidebar-item'>
             <label  class='sidebar-label'>Цена товара</label>
             <div class='label__important'></div>
-            <input class='sidebar-input' placeholder='Введите цену'/>
+            <input class='sidebar-input' 
+            placeholder='Введите цену'
+            v-model="price"
+            type="text"
+            @blur="isPriceTouched = true"
+            :class="{ error: isPriceError }"/>
+            <div v-if="isPriceError" class='error-mes'>
+                Поле является обязательным
+            </div>
         </div>
         
-        <button type="submit" class='sidebar-btn'>Добавить товар</button>
+        <button type="submit" :disabled="!isTitleValid || !isLinkValid || !isPriceValid" class='sidebar-btn'>Добавить товар</button>
     </form>
 </template>
 
 <script>
+const checkRegex = /^\s*$/;
+
 export default {
 
+  data() {
+    return {
+      title: '',
+      link: '',
+      price: '',
+      isTitleTouched: false,
+      isLinkTouched: false,
+      isPriceTouched: false,
+    };
+  },
+
+  computed: {
+    isTitleValid() {
+      return !checkRegex.test(this.title);
+    },
+    isTitleError() {
+      return !this.isTitleValid && this.isTitleTouched;
+    },
+
+    isLinkValid() {
+      return !checkRegex.test(this.link);
+    },
+
+    isLinkError() {
+      return !this.isLinkValid && this.isLinkTouched;
+    },
+
+    isPriceValid() {
+      return !checkRegex.test(this.price);
+    },
+
+    isPriceError() {
+      return !this.isPriceValid && this.isPriceTouched;
+    },
+  },
+  methods: {
+    someAction() {
+      if (!this.isTitleValid && !this.isLinkValid && !this.isPriceValid) {
+        return;
+      }
+
+      alert("Форма отправлена");
+    }
+  }
 };
 </script>
 
@@ -99,7 +168,7 @@ export default {
 
     text-align: left;
     color: #B4B4B4;
-}
+    }
 }
 
 .sidebar-input__long {
@@ -108,12 +177,14 @@ export default {
     padding-top: 10px;
 }
 
+input, textarea:focus {
+    outline:none;
+}
+
 .sidebar-btn{
     width: 100%;
     height: 36px;
     border: none;
-
-    background: #EEEEEE;
     border-radius: 10px;
 
     font-family: Inter;
@@ -123,6 +194,34 @@ export default {
     line-height: 15px;
     text-align: center;
     letter-spacing: -0.02em;
+
+    background: #7BAE73;
+    color: white;   
+}
+
+button:disabled {
+    background: #EEEEEE;
     color: #B4B4B4;
 }
+
+.error-mes{
+    margin-bottom: 10px;
+    font-family: Source Sans Pro;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 13px;
+    letter-spacing: -0.02em;
+    color: #FF8484;
+}
+
+.error{
+    border: 1px solid #FF8484;
+    margin-bottom: 5px;
+}
+
+// button:disabled {
+//     background: #7BAE73;
+//     color: white;
+// }
 </style>

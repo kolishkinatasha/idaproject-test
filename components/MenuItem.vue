@@ -5,12 +5,49 @@
         </div>
         <img class='menu-item-img' src='../static/foto.png' alt='foto item'/>
         <div class='menu-content'>
-            <h2 class='menu-item-title'>Наименование товара</h2>
-            <p class='menu-item-descr'>Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк</p>
-            <p class='menu-item-price'>10 000 руб.</p>
+            <div>
+                <p class='menu-item-title'>
+                    Наименование товара
+                    <!-- {{ item.title }} -->
+                </p>
+                <p class='menu-item-descr'>
+                    <!-- {{ item.descr }}  -->
+                    Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк
+                </p>
+                <p class='menu-item-price'>
+                    <!-- {{ item.price }}  -->
+                    10 000руб.
+                </p>
+            </div>
+            
         </div>
     </div>
 </template>
+
+<script>
+import Vue from 'vue';
+
+// new Vue({
+//   data: {
+//     items: [
+//       {
+//         id: 1,
+//         title: "Название товара",
+//         descr: "Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк.",
+//         price: 10000
+//       },
+//       {
+//         id: 2,
+//         title: "Название товара",
+//         descr: "Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк.",
+//         price: 10000
+//       },
+//     ],
+//   },
+// })
+
+export default {}
+</script>
 
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
